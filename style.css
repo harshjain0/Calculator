@@ -1,0 +1,85 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('tz.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.calculator {
+    background-color: #747575;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.display {
+    background-color: #f0f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.equation {
+    min-height: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+.result {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: scale(0.8);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.number {
+    background-color: #5a72de;
+    color: white;
+}
+
+.operator {
+    background-color: #4e5891;
+    color: white;
+}
+
+.clear, .clear-all {
+    background-color: #F56a48;
+    color: white;
+}
+
+.equals, .backspace {
+    background-color: #5f5b7b;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

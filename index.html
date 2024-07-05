@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="equation"></div>
+            <div class="result">0</div>
+        </div>
+        <div class="buttons">
+            <button class="clear-all">AC</button>
+            <button class="clear">C</button>
+            <button class="backspace">⌫</button>
+            <button class="operator">÷</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">×</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator">-</button>
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="operator">+</button>
+            <button class="number">0</button>
+            <button class="number">.</button>
+            <button class="equals">=</button>
+        </div>
+    </div>
+    <script>
+        let equation = '';
+        let result = '0';
+        let justEvaluated = false;
+        const equationDisplay = document.querySelector('.equation');
+        const resultDisplay = document.querySelector('.result');
+
+        function updateDisplay() {
+            equationDisplay.textContent = equation;
+            resultDisplay.textContent = result;
+            // Add animation
+            resultDisplay.style.animation = 'fadeIn 0.3s ease-out';
+            setTimeout(() => {
+                resultDisplay.style.animation = '';
+            }, 300);
+        }
+
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+
+                if (button.classList.contains('number')) {
+                    if (result === '0' || result === 'Error' || justEvaluated) {
+                        result = value;
+                        justEvaluated = false;
+                    } else {
+                        result += value;
+                    }
+                } else if (button.classList.contains('operator')) {
+                    if (justEvaluated) {
+                        equation = result + ' ' + value + ' ';
+                        justEvaluated = false;
+                    } else {
+                        equation += result + ' ' + value + ' ';
+                    }
+                    result = '0';
+                } else if (button.classList.contains('equals')) {
+                    equation += result;
+                    try {
+                        result = eval(equation.replace('×', '*').replace('÷', '/')).toString();
+                        equation = '';
+                        justEvaluated = true;
+                    } catch {
+                        result = 'Error';
+                    }
+                } else if (button.classList.contains('clear')) {
+                    result = '0';
+                } else if (button.classList.contains('clear-all')) {
+                    equation = '';
+                    result = '0';
+                } else if (button.classList.contains('backspace')) {
+                    result = result.slice(0, -1);
+                    if (result === '') result = '0';
+                }
+
+                updateDisplay();
+            });
+        });
+    </script>
+</body>
+</html>
+
